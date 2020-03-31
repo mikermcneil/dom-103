@@ -1,0 +1,152 @@
+
+<!--
+//  ██████╗  ██████╗ ███╗   ███╗     ██╗ ██████╗ ██████╗
+//  ██╔══██╗██╔═══██╗████╗ ████║    ███║██╔═████╗╚════██╗
+//  ██║  ██║██║   ██║██╔████╔██║    ╚██║██║██╔██║ █████╔╝
+//  ██║  ██║██║   ██║██║╚██╔╝██║     ██║████╔╝██║ ╚═══██╗
+//  ██████╔╝╚██████╔╝██║ ╚═╝ ██║     ██║╚██████╔╝██████╔╝
+//  ╚═════╝  ╚═════╝ ╚═╝     ╚═╝     ╚═╝ ╚═════╝ ╚═════╝
+//
+-->
+
+
+<!--
+
+Notes:
+Mar 31, 2020
+Rachael Shaw
+Mike McNeil
+
+document:  mural
+window/viewport: empty frame moving around on top of the mural
+
+
+
+coordinates:
+  top, left
+  top, right
+  bottom, left
+  bottom, right
+
+  should always make sense.  Never use coordinates that don't make any sense
+  no left+right at the same time
+  no top+bottom at the same time
+
+
+z-index:
+  · it doesn't quite work the way you think
+  · first of all, it only works on elements with position (i.e. not position: static)
+  · only use it on position: absolute and position: fixed elements,
+    OR when you're working with position:relative elements that have position: absolute siblings
+
+
+position: static
+  should never need to set anything explicitly to that
+  don't give it coordinates
+
+position: relative
+  like a "hook", make it so that you can position other elements relative to THIS one
+  don't give it coordinates
+
+position: absolute
+  use one of your "hooks" to position this element with x and y coordinates, basically
+  rips the element out of the normal flow- makes it not take up space
+  when we floated elements, their parent lost its height
+  should always have coordinates
+  don't position a position: absolute element relative to its to grandma or other ancestor --
+    instead "staple it" to its parent
+
+position: fixed
+  position this element relative to the window (to the viewport)
+  should always have coordinates
+
+position: sticky
+  parallax scrolling use cases, stuff w/ overflow:auto areas, I dunno
+
+
+ -->
+<style type="text/css">
+  .box-1 {
+    margin-top: 100px;
+    width: 200px;
+    /*height: 200px;*/
+    background-color: red;
+
+    position: relative;
+  }
+  .box-2 {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+
+    left: 80px;
+    top: -20px;
+    position: absolute;
+    z-index: 1;
+  }
+  .box-3 {
+    width: 70px;
+    height: 70px;
+    background-color: green;
+
+    top: 0;
+    right: 75px;
+    position: absolute;
+    z-index: 1000;
+  }
+  .box-4 {
+    height: 50px;
+    overflow: auto;
+  }
+  .box-5 {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    right: 0;
+    height: 50px;
+    width: 75px;
+  }
+
+  .box-6 {
+    position: relative;
+  }
+</style>
+
+<div class="box-1">
+  <p>position: relative</p>
+  <div class="box-6" style="background: lemonchiffon">
+    position: static
+    <div class="box-3">position: absolute</div>
+    this box is overstuffed too
+    this box is overstuffed too
+    this box is overstuffed too
+    this box is overstuffed too
+  </div>
+  <div class="box-2">position: absolute</div>
+  this box is overstuffed
+  this box is overstuffed
+  this box is overstuffed
+</div>
+
+
+<!-- <div class="box-4" style="background: orange;">
+  position: static
+  this box is overstuffed
+  this box is overstuffed
+  this box is overstuffed
+  this box is overstuffed
+  this box is overstuffed
+  this box is overstuffed
+  <div class="box-5"  style="background: brown">position: sticky</div>
+  this box is overstuffed
+  this box is overstuffed
+  this box is overstuffed
+  this box is overstuffed
+  this box is overstuffed
+  this box is overstuffed
+  this box is overstuffed
+  this box is overstuffed
+</div> -->
+
+
+
